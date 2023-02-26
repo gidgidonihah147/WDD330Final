@@ -26,6 +26,7 @@ img {
   max-width: 100%;
 }
 header {
+  color: white;
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
@@ -128,30 +129,32 @@ button {
   justify-content: space-between;
   list-style-type: none;
   padding: 0;
+  text-align: center;
+  border: 4px solid black;
 }
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
 }
 /* Styles for product lists */
-.product-card {
+.movie-card {
   flex: 1 1 45%;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
 }
-.product-card h2,
-.product-card h3,
-.product-card p {
+.movie-card h2,
+.movie-card h3,
+.movie-card p {
   margin: 0.5em 0;
 }
 
-.card__brand {
+.card__director {
   font-size: var(--small-font);
 }
 
-.card__name {
+.card__title {
   font-size: 1em;
 }
 /* End product list card */
@@ -204,8 +207,14 @@ button {
 
 @media screen and (min-width: 500px) {
   body {
+    max-width: 70%;
+    margin: auto;
+    background-color: #303030;
+  }
+  main {
     max-width: 1080px;
     margin: auto;
+    background-color: #a4b8c4;
   }
   .mission {
     font-size: 1.2em;
@@ -219,4 +228,7 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+  position: static;
+  bottom: 1em;
+  color: white;
 }

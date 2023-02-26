@@ -1,5 +1,5 @@
 import { setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ProductData from "./movieData.mjs";
 
 const dataSource = new ProductData("tents");
 
