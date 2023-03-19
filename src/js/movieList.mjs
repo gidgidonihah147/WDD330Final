@@ -47,7 +47,6 @@ export default class MovieListing {
     async init() {
       // our dataSource will return a Promise...so we can use await to resolve it.
       const list = getLocalStorage(this.genre);
-      list.sort(sortByProperty(sort));
       const localJSON = await this.getData();
       this.renderLocalJson(list,localJSON);
     }
@@ -55,10 +54,12 @@ export default class MovieListing {
     renderLocalJson(list,LocalJSON){
       if (list == null){
         console.log('There is no local storage - rendering from localJson');
+        LocalJSON.sort(sortByProperty(sort));
         renderListWithTemplate(movieCardTemplate, this.listElement, LocalJSON);
       }
       else{
         console.log('Rendered from your browsers localstorage. Delete your localStorage to view the sample movies from localJson')
+        list.sort(sortByProperty(sort));
         renderListWithTemplate(movieCardTemplate, this.listElement, list)
       }
     }
