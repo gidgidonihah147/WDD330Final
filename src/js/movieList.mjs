@@ -1,14 +1,34 @@
-import { renderListWithTemplate } from './utils.mjs';
+import { getLocalStorage, renderListWithTemplate } from './utils.mjs';
+
+function convertToJson(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error('Bad Response');
+  }
+}
+function sortByProperty(property){  
+  return function(a,b){  
+     if(a[property] > b[property])  
+        return 1;  
+     else if(a[property] < b[property])  
+        return -1;  
+ 
+     return 0;  
+  }  
+}
 
 function movieCardTemplate(movie) {
-    return `<li class="movie-card"><a href="/movie_pages/index.html?movie=${movie.Id}"><img
-    src="${movie.Image}"
-    alt="Image of ${movie.Title}"
-    <h3 class="card__director">${movie.Source}</h3><h2 class="movie__name">${movie.Title}</h2><p class="movie-worldwide__price">${movie.Release}</p></a></li>
+    return `<li class='movie-card'><a href='/movie_pages/index.html?movie=${movie.Title}'><img
+    src='${movie.Poster}'
+    alt='Image of ${movie.Title}'
+    <h3 class='card__director'>${movie.Director}</h3><h2 class='movie__name'>${movie.Title}</h2><p >${movie.Year}</p></a></li>
     
     `;
     
   }
+  var sort = 'Title';
+
 
 export default class MovieListing {
     constructor(genre, dataSource, listElement) {
@@ -17,16 +37,29 @@ export default class MovieListing {
       this.genre = genre;
       this.dataSource = dataSource;
       this.listElement = listElement;
+      this.path = `../public/json/${this.genre}.json`;
+    }
+    getData() {
+      return fetch(this.path)
+        .then(convertToJson)
+        .then((data) => data.sort(sortByProperty(sort)));
     }
     async init() {
       // our dataSource will return a Promise...so we can use await to resolve it.
-      const list = await this.dataSource.getData(this.genre);
-      this.renderList(list);
- 
+      const list = getLocalStorage(this.genre);
+      list.sort(sortByProperty(sort));
+      const localJSON = await this.getData();
+      this.renderLocalJson(list,localJSON);
     }
-    renderList(list) {
-        renderListWithTemplate(movieCardTemplate, this.listElement, list);
+    
+    renderLocalJson(list,LocalJSON){
+      if (list == null){
+        console.log('There is no local storage - rendering from localJson');
+        renderListWithTemplate(movieCardTemplate, this.listElement, LocalJSON);
+      }
+      else{
+        console.log('Rendered from your browsers localstorage. Delete your localStorage to view the sample movies from localJson')
+        renderListWithTemplate(movieCardTemplate, this.listElement, list)
+      }
     }
 }
-
-

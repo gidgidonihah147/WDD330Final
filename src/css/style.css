@@ -83,14 +83,16 @@ header {
 }
 
 button {
-  padding: 0.5em 2em;
+  padding: auto;
   background-color: var(--secondary-color);
   color: white;
   margin: auto;
-  display: block;
   border: 0;
-  font-size: var(--large-font);
+  width: 49%;
   cursor: pointer;
+}
+#addToCollection {
+  width: 100%;
 }
 .divider {
   border-bottom: 2px solid var(--primary-color);
@@ -135,6 +137,25 @@ button {
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
+}
+nav li {
+  list-style: none;
+  display: inline-table;
+  padding: auto;
+  color: white;
+  margin: auto;
+  border: 0;
+  width: 19%;
+  cursor: pointer;
+  height: auto;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+}
+nav {
+  width: 100%;
+  text-align: center;
 }
 /* Styles for product lists */
 .movie-card {
@@ -231,4 +252,10 @@ footer {
   position: static;
   bottom: 1em;
   color: white;
+}
+picture {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
 }

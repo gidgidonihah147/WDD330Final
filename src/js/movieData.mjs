@@ -10,7 +10,7 @@ function sortByProperty(property){
 }
 
 //var sort = 'Rotten Tomatoes Rating';
-var sort = 'Title';
+var sort = 'title';
 
 
 function convertToJson(res) {
@@ -25,6 +25,7 @@ function convertToJson(res) {
 export default class MovieData {
   constructor(genre) {
     this.genre = genre;
+    //this.path = `../public/json/movies.json`;
     this.path = `../public/json/${this.genre}.json`;
   }
   getData() {
@@ -33,9 +34,9 @@ export default class MovieData {
       .then((data) => data.sort(sortByProperty(sort)));
   }
  
-  async findProductById(id) {
+  async findProductById(title) {
     const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    return products.find((item) => item.Title === title);
   }
 }
 

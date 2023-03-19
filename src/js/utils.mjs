@@ -29,8 +29,8 @@ export function setClick(selector, callback) {
 export function getParams(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product;
+  const movie = urlParams.get(param);
+  return movie;
 }
 
 // render a list 
@@ -61,27 +61,11 @@ export async function loadHeaderFooter(headerData, headerCallback) {
   const headerExport = document.querySelector('#main-header');
   const footerTemplate = await loadTemplate('../partials/footer.html');
   const footerExport = document.querySelector('#main-footer');
-
+  const navTemplate = await loadTemplate('../partials/nav.html');
+  const navExport = document.querySelector('#main-nav');
+  
+  renderWithTemplate(navTemplate, navExport);
   renderWithTemplate(headerTemplate, headerExport, headerData, headerCallback);
   renderWithTemplate(footerTemplate, footerExport);
 } 
 
-/* export function alertMessage(message, scroll=true) {
-  const alert = document.createElement('div');
-  alert.classList.add('alert');
-  alert.innerHTML = `<p>${message}</p><span>X</span>`;
-
-  alert.addEventListener('click', function (e) {
-    if (e.target.tagName == 'SPAN') {
-      main.removeChild(this);
-    }
-  });
-  const main = document.querySelector('main');
-  main.prepend(alert);
-  if (scroll) window.scrollTo(0, 0);
-}
-
-export function removeAllAlerts () {
-  const alerts = document.querySelectorAll('.alert');
-  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
-} */

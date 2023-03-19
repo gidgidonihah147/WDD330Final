@@ -1,18 +1,9 @@
-import { setLocalStorage } from "./utils.mjs";
-import ProductData from "./movieData.mjs";
+import { getParams } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
+import MovieDetails from "./movieDetails.mjs";
+//const fs = require('fs');
 
-const dataSource = new ProductData("tents");
-
-function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
-}
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
-
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+const dataSource = new ExternalServices();
+const movieTitle = getParams("movie");
+const movie = new MovieDetails(dataSource, movieTitle);
+movie.init();
