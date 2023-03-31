@@ -26,7 +26,7 @@ export default class MovieData {
   constructor(genre) {
     this.genre = genre;
     //this.path = `../public/json/movies.json`;
-    this.path = `../public/json/${this.genre}.json`;
+    this.path = `/src/public/json/${this.genre}.json`;
   }
   getData() {
     return fetch(this.path)
