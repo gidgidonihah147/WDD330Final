@@ -6,7 +6,6 @@ const genre = getParams('genre');
 
 // show the list of movies
 var movies = new MovieData(genre);
-console.log(movies);
 var listElement = qs('.product-list');
 var titleElement = qs('.title');
 var title = genre.toString();

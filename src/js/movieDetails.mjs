@@ -2,9 +2,9 @@ import {
   getLocalStorage,
   setLocalStorage,
   qs,
-  renderListWithTemplate
+  renderListWithTemplate,
+  alertMessage
 } from './utils.mjs';
-
 
 
 export default class MovieDetails {
@@ -31,8 +31,8 @@ export default class MovieDetails {
       .addEventListener('click', this.addToFantasy.bind(this));
     document.getElementById('addToHorror')
       .addEventListener('click', this.addToHorror.bind(this));
-
   }
+
   addToCollection() {
     let movies = []; // init cart array
 
@@ -47,6 +47,10 @@ export default class MovieDetails {
     if (movieIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('collection', movies);
+      alertMessage(`This movie has been added to your collection!`)
+    }
+    else {
+      alertMessage(`This movie is already in your collection`)
     }
     //push to storage
   }
@@ -64,6 +68,10 @@ export default class MovieDetails {
     if (genreIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('action', movies);
+      alertMessage(`This movie has been added to your action playlist!`)
+    }
+    else {
+      alertMessage(`This movie is already in your action playlist`)
     }
     movies = []; // init cart array
     if (localStorage.getItem('collection')) {
@@ -77,6 +85,10 @@ export default class MovieDetails {
     if (collectionIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('collection', movies);
+      alertMessage(`This movie has been added to collection!`)
+    }
+    else {
+      alertMessage(`This movie is already in your collection`)
     }
     //push to storage
   }
@@ -94,6 +106,10 @@ export default class MovieDetails {
     if (movieIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('drama', movies);
+      alertMessage(`This movie has been added to your drama playlist!`)
+    }
+    else {
+      alertMessage(`This movie is already in your drama playlist`)
     }
     movies = []; // init cart array
     if (localStorage.getItem('collection')) {
@@ -107,6 +123,10 @@ export default class MovieDetails {
     if (collectionIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('collection', movies);
+      alertMessage(`This movie has been added to collection!`)
+    }
+    else {
+      alertMessage(`This movie is already in your collection`)
     }
     //push to storage
   }
@@ -124,6 +144,10 @@ export default class MovieDetails {
     if (movieIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('horror', movies);
+      alertMessage(`This movie has been added to your horror playlist!`)
+    }
+    else {
+      alertMessage(`This movie is already in your horror playlist`)
     }
     movies = []; // init cart array
     if (localStorage.getItem('collection')) {
@@ -137,6 +161,10 @@ export default class MovieDetails {
     if (collectionIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('collection', movies);
+      alertMessage(`This movie has been added to collection!`)
+    }
+    else {
+      alertMessage(`This movie is already in your collection`)
     }
     //push to storage
   }
@@ -154,6 +182,10 @@ export default class MovieDetails {
     if (movieIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('fantasy', movies);
+      alertMessage(`This movie has been added to your fantasy playlist!`)
+    }
+    else {
+      alertMessage(`This movie is already in your fantasy playlist`)
     }
     movies = []; // init cart array
     if (localStorage.getItem('collection')) {
@@ -167,6 +199,10 @@ export default class MovieDetails {
     if (collectionIndex == -1) {
       movies.push(this.movie); // add new content to array
       setLocalStorage('collection', movies);
+      alertMessage(`This movie has been added to collection!`)
+    }
+    else {
+      alertMessage(`This movie is already in your collection`)
     }
     //push to storage
   }
@@ -188,23 +224,44 @@ function movieTemplate(movie) {
         alt='${movie.Title}'
         />
       </picture>
-      <div id='movie-details'>
+      <div id='movie-info'>
         <h3>Movie Details</h3>
         <ul>
-            <li>Year: ${movie.Year}</li>
-            <li>Rating: ${movie.Rated}</li>
-            <li>Release Date: ${movie.Released}</li>
-            <li>Runtime: ${movie.Runtime}</li>
+            <div id='basic-info'>
+                <li>Year: ${movie.Year}</li>
+                <li>Rating: ${movie.Rated}</li>
+                <li>Release Date: ${movie.Released}</li>
+                <li>Runtime: ${movie.Runtime}</li>
+            </div>
             <li>Plot: ${movie.Plot}</li>
-            <li> ${movie.Ratings[0].Source}: ${movie.Ratings[0].Value}</li>
         </ul>
       </div>
-      <div>
-      <h3>Playlists</h3>
-      <button id='addToAction'  data-id='${movie.Title}'>Add to Action Playlist</button>
-      <button id='addToDrama'  data-id='${movie.Title}'>Add to Drama Playlist</button>
-      <button id='addToHorror'  data-id='${movie.Title}'>Add to Horror Playlist</button>
-      <button id='addToFantasy'  data-id='${movie.Title}'>Add to Fantasy Playlist</button>
-    </div>
+      <div id='cast-crew'>
+        <h3>Cast & Crew</h3>
+        <ul>
+            <li>Director: ${movie.Director}</li>
+            <li>Writers: ${movie.Writer}</li>
+            <li>Actors: ${movie.Actors}</li>
+        </ul>  
+      </div> 
+      <div id='reviews-awards>
+        <h3>Reviews & Awards</h3>
+        <ul>
+            <li> ${movie.Ratings[0].Source}: ${movie.Ratings[0].Value}</li>
+            <li>Metascore: ${movie.Metascore}</li>
+            <li>imdb Rating: ${movie.imdbRating}</li>
+            <li>Awards: ${movie.Awards}</li>
+        </ul>
+      </div>
+      
+      <div id='playlist'>
+        <h3>Playlists</h3>
+            <div id="buttons">
+                <button id='addToAction'  data-id='${movie.Title}'>Add to Action Playlist</button>
+                <button id='addToDrama'  data-id='${movie.Title}'>Add to Drama Playlist</button>
+                <button id='addToHorror'  data-id='${movie.Title}'>Add to Horror Playlist</button>
+                <button id='addToFantasy'  data-id='${movie.Title}'>Add to Fantasy Playlist</button>
+            </div>
+      </div>
     </section>`
 }
